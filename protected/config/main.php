@@ -9,12 +9,13 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array('log', 'yii_booster'),
 
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.helpers.*',
 	),
 
 	'modules'=>array(
@@ -22,9 +23,12 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
+			'password'=>'1',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
+			'generatorPaths' => array(
+				'yii_booster.gii'
+			),
 		),
 		'ads' => array(
 			'import' => array(
@@ -62,11 +66,15 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 				'bootstrap_theme' => array(
 					// Где искать подключаемые файлы JS и CSS
 					'baseUrl' => '/themes/twitter_bootstrap/public',
-					'css' => array('css/bootstrap.min.css', 'css/bootstrap-responsive.min.css', 'css/custom.css'),
-					'js' => array('js/bootstrap.min.js'),
+					'css' => array('css/custom.css'),
+
 					'depends' => array('jquery')
 				),
 			)
+		),
+		'yii_booster' => array(
+			'class' => 'ext.yii_booster.components.Bootstrap',
+			'responsiveCss' => true,
 		),
 
 	),
