@@ -59,6 +59,15 @@ class RegistrationForm extends CFormModel
 			throw new CException('Ошибка сохранения пользователя', E_USER_ERROR);
 		}
 
+		$loginForm = new LoginForm();
+		$loginForm->password = $this->password;
+		$loginForm->username = $this->username;
+
+		if (!$loginForm->validate() || !$loginForm->login())
+		{
+			throw new CException('Ошибка авторизации пользователя', E_USER_ERROR);
+		}
+
 		return TRUE;
 	}
 }

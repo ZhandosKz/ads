@@ -21,16 +21,10 @@ class AuthController extends Controller
 		);
 	}
 
-	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
-	 */
+
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-
-		$this->render('index');
+		$this->redirect('/');
 	}
 
 
@@ -41,24 +35,29 @@ class AuthController extends Controller
 	{
 		$model=new LoginForm;
 
-		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
+		$request = Yii::app()->request;
+
+		if($request->getIsAjaxRequest() && MyArray::checkValue($_POST, 'ajax', 'login_form'))
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
 
-		// collect user input data
-		if(isset($_POST['LoginForm']))
+
+		if($request->getIsPostRequest())
 		{
-			$model->attributes=$_POST['LoginForm'];
-			FlashMessage::setSuccess('Добро пожаловать!');
-			// validate user input and redirect to the previous page if valid
+			$model->attributes = $request->getPost(get_class($model));
+
 			if($model->validate() && $model->login())
+			{
+				FlashMessage::setSuccess('Добро пожаловать!');
 				$this->redirect(Yii::app()->user->returnUrl);
+			}
+
 		}
-		// display the login form
-		$this->render('login',array('model'=>$model));
+		$this->render('login', array(
+			'model'=>$model
+		));
 	}
 
 	public function actionRegister()
@@ -86,12 +85,11 @@ class AuthController extends Controller
 			'model' => $form
 		));
 	}
-	/**
-	 * Logs out the current user and redirect to homepage.
-	 */
+
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();
+		FlashMessage::setSuccess('Вы вышли');
 		$this->redirect(Yii::app()->homeUrl);
 	}
 }
