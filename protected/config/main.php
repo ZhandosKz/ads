@@ -9,7 +9,7 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 
 	// preloading 'log' component
-	'preload'=>array('log', 'yii_booster'),
+	'preload'=>array('log', 'bootstrap'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -31,9 +31,10 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 			),
 		),
 		'ads' => array(
-			'import' => array(
-				'application.modules.ads.components.*'
-			),
+
+		),
+		'admin' => array(
+			'preload' => array('bootstrap'),
 		)
 	),
 
@@ -79,9 +80,8 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 				),
 			)
 		),
-		'yii_booster' => array(
-			'class' => 'ext.yii_booster.components.Bootstrap',
-			'responsiveCss' => true,
+		'bootstrap' => array(
+			'class' => 'ext.bootstrap.components.Bootstrap'
 		),
 
 	),

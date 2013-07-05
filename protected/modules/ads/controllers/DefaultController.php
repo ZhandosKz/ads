@@ -1,7 +1,6 @@
 <?php
 class DefaultController extends ModuleController
 {
-	public $layout = '//layouts/main';
     public function actionIndex()
     {
 

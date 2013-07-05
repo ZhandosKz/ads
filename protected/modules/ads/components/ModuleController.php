@@ -2,7 +2,7 @@
 class ModuleController extends Controller
 {
     public  $leftMenu = array();
-
+	public $layout = '//layouts/main';
     protected function beforeAction($action)
     {
         $this->breadcrumbs = array(

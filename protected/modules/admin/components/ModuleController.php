@@ -1,8 +1,8 @@
 <?php
-class ModuleController extends ApplicationController
+class ModuleController extends Controller
 {
     public  $leftMenu = array();
-
+	public $layout = '//layouts/admin';
     protected function beforeAction($action)
     {
         $this->breadcrumbs = array(
@@ -17,10 +17,13 @@ class ModuleController extends ApplicationController
     public function accessRules()
     {
         return array(
-            array(
-                'deny',
-                'users' => array('admin')
-            ),
+	        array(
+	            'allow',
+		        'roles' => array('superadmin')
+	        ),
+	        array(
+		        'deny',
+	        ),
         );
     }
 }
