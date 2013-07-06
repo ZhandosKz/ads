@@ -11,6 +11,7 @@
  * @property integer $created_by
  * @property string $modified_at
  * @property integer $modified_by
+ * @property array $ads
  */
 class Category extends CActiveRecord
 {
@@ -57,6 +58,7 @@ class Category extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'ads' => array(self::MANY_MANY, 'Ads', 'ads_category(category_id, ads_id)')
 		);
 	}
 
@@ -81,6 +83,9 @@ class Category extends CActiveRecord
 		return array(
 			'CreatedModified' => array(
 				'class' => 'CreatedModifiedBehavior'
+			),
+			'CAdvancedArBehavior' => array(
+				'class' => 'CAdvancedArBehavior'
 			)
 		);
 	}
