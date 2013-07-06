@@ -33,10 +33,8 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 			),
 		),
 		'ads' => array(
-
 		),
 		'admin' => array(
-			'preload' => array('bootstrap'),
 		)
 	),
 
@@ -45,6 +43,7 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+			'loginUrl' => array('login')
 		),
 
 		'authManager'=>array(
@@ -61,6 +60,10 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 				'<action:(login|logout|register)>' => 'auth/<action>',
+				array(
+					'class' => 'application.components.CategoryUrlRule',
+					'connectionID' => 'db',
+				),
 			),
 			'showScriptName' => FALSE
 		),

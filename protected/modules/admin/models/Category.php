@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'category':
  * @property integer $id
+ * @property string $alias
  * @property string $name
  * @property string $description
  * @property string $created_at
@@ -112,5 +113,23 @@ class Category extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function beforeSave()
+	{
+		$this->alias = Transliterate::getUrl($this->name);
+		return TRUE;
+	}
+	public static  function getMenuItems()
+	{
+		$items = array();
+		foreach (self::model()->findAll() as $category)
+		{
+			$items[] = array(
+				'label' => $category->name,
+				'url' => array($category->alias)
+			);
+		}
+		return $items;
 	}
 }
