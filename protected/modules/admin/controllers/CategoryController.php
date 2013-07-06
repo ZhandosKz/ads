@@ -9,8 +9,9 @@ class CategoryController extends ModuleController
 	 */
 	public function actionView($id)
 	{
+		$this->pageTitle = 'Просмотр категории';
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'data'=>$this->loadModel($id),
 		));
 	}
 
@@ -22,16 +23,21 @@ class CategoryController extends ModuleController
 	{
 		$model=new Category;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$request = Yii::app()->request;
 
-		if(isset($_POST['Category']))
+		$this->performAjaxValidation($request, $model);
+
+		if ($request->isPostRequest)
 		{
-			$model->attributes=$_POST['Category'];
+			$model->attributes = $request->getPost(get_class($model));
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+			{
+				FlashMessage::setSuccess('Категория создана');
+				$this->redirect(array('index'));
+			}
 
+		}
+		$this->pageTitle = 'Создание категории';
 		$this->render('create',array(
 			'model'=>$model,
 		));
@@ -46,16 +52,22 @@ class CategoryController extends ModuleController
 	{
 		$model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$request = Yii::app()->request;
 
-		if(isset($_POST['Category']))
+		$this->performAjaxValidation($request, $model);
+
+		if ($request->isPostRequest)
 		{
-			$model->attributes=$_POST['Category'];
+			$model->attributes = $request->getPost(get_class($model));
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			{
+				FlashMessage::setSuccess('Категория отредактирована');
+				$this->redirect(array('index'));
+			}
+
 		}
 
+		$this->pageTitle = 'Редактирование категории';
 		$this->render('update',array(
 			'model'=>$model,
 		));
@@ -80,33 +92,23 @@ class CategoryController extends ModuleController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Category');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-
 		$model=new Category('search');
 
 		if (Yii::app()->getRequest()->isAjaxRequest)
 		{
 			header( 'Content-type: application/json');
-			echo $this->renderPartial('admin',array(
+			echo $this->renderPartial('index',array(
 				'model'=> $model,
 			));
 			Yii::app()->end();
 		}
 
-		$this->render('admin',array(
+		$this->pageTitle = 'Управление категориями';
+		$this->render('index',array(
 			'model'=>$model,
 		));
 	}
+
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -127,9 +129,9 @@ class CategoryController extends ModuleController
 	 * Performs the AJAX validation.
 	 * @param Category $model the model to be validated
 	 */
-	protected function performAjaxValidation($model)
+	protected function performAjaxValidation(CHttpRequest $request, CActiveRecord $model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='category-form')
+		if($request->isAjaxRequest && MyArray::checkValue($_POST, 'ajax', 'category_form'))
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

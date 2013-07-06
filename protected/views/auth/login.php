@@ -2,8 +2,8 @@
 /* @var $this SiteController */
 /* @var $model LoginForm */
 /* @var $form TbActiveForm  */
-?>
-<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'login_form',
 	'enableClientValidation'=>true,
 	'enableAjaxValidation' => true,

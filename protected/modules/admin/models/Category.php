@@ -41,8 +41,8 @@ class Category extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created_by, modified_by', 'numerical', 'integerOnly'=>true),
+			array('name, description', 'required'),
 			array('name', 'length', 'max'=>255),
-			array('description, created_at, modified_at', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, description, created_at, created_by, modified_at, modified_by', 'safe', 'on'=>'search'),
@@ -67,12 +67,21 @@ class Category extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'description' => 'Description',
+			'name' => 'Название',
+			'description' => 'Описание',
 			'created_at' => 'Created At',
 			'created_by' => 'Created By',
 			'modified_at' => 'Modified At',
 			'modified_by' => 'Modified By',
+		);
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'CreatedModified' => array(
+				'class' => 'CreatedModifiedBehavior'
+			)
 		);
 	}
 

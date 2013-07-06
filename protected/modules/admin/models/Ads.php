@@ -62,6 +62,15 @@ class Ads extends CActiveRecord
 		);
 	}
 
+	public function behaviors()
+	{
+		return array(
+			'CreatedModified' => array(
+				'class' => 'CreatedModifiedBehavior'
+			)
+		);
+	}
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
