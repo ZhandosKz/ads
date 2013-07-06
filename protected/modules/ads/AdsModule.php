@@ -10,6 +10,7 @@ class AdsModule extends CWebModule
 		$this->setImport(array(
 			'ads.models.*',
 			'ads.components.*',
+			'application.modules.admin.models.*'
 		));
 	}
 
