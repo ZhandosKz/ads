@@ -43,7 +43,10 @@ class Ads extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, is_published, created_by, modified_by', 'numerical', 'integerOnly'=>true),
+			array('user_id, created_by, modified_by', 'numerical', 'integerOnly'=>true),
+			array('is_published', 'boolean'),
+			array('title, description', 'required'),
+			array('categories', 'required', 'message' => 'Выберите как минимум одну категорию'),
 			array('title', 'length', 'max'=>255),
 			array('description, created_at, modified_at', 'safe'),
 			// The following rule is used by search().
@@ -84,9 +87,10 @@ class Ads extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'user_id' => 'User',
-			'title' => 'Title',
-			'description' => 'Description',
+			'title' => 'Заголовок',
+			'description' => 'Описание',
 			'is_published' => 'Is Published',
+			'categories' => 'Категории',
 			'created_at' => 'Created At',
 			'created_by' => 'Created By',
 			'modified_at' => 'Modified At',
@@ -109,7 +113,6 @@ class Ads extends CActiveRecord
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
-		$criteria->compare('is_published',$this->is_published);
 		$criteria->compare('created_at',$this->created_at,true);
 		$criteria->compare('created_by',$this->created_by);
 		$criteria->compare('modified_at',$this->modified_at,true);
