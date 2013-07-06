@@ -1,20 +1,33 @@
 <?php
 class FlashMessage
 {
-	const SUCCESS = 0;
-	const ERROR = 1;
-	const WARNING = 2;
+	const SUCCESS = 'success';
+	const ERROR = 'error';
+	const WARNING = 'warning';
+
+	private static  $_successMessages = array();
+	private static  $_errorMessages = array();
+	private static  $_warningMessages = array();
 
 	public static function setSuccess($message)
 	{
-		Yii::app()->user->setFlash(self::SUCCESS, $message);
+		self::$_successMessages[] = $message;
+
+		Yii::app()->user->setFlash(self::SUCCESS, self::$_successMessages);
 	}
+
 	public static function setError($message)
 	{
-		Yii::app()->user->setFlash(self::ERROR, $message);
+		self::$_errorMessages[] = $message;
+
+		Yii::app()->user->setFlash(self::ERROR, self::$_errorMessages);
 	}
+
 	public static function setWarning($message)
 	{
-		Yii::app()->user->setFlash(self::WARNING, $message);
+		self::$_warningMessages[] = $message;
+
+		Yii::app()->user->setFlash(self::WARNING, self::$_warningMessages);
 	}
+
 }

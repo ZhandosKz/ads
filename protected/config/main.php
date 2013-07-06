@@ -16,6 +16,7 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 		'application.models.*',
 		'application.components.*',
 		'application.helpers.*',
+		'application.widgets.*'
 	),
 
 	'modules'=>array(
