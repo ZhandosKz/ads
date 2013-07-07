@@ -19,3 +19,15 @@ body {
 {
     position: relative;
 }
+.ads-list h4
+{
+    margin-bottom: 0;
+}
+.ads-list .categories
+{
+    margin-top: 5px;
+}
+.ads-list small
+{
+    color: #777;
+}

@@ -20,7 +20,7 @@
 		</tr>
 		<tr>
 			<td><strong><?php echo CHtml::encode($data->getAttributeLabel('categories')); ?></strong></td>
-			<td><?php echo implode(', ', CHtml::listData($data->categories, 'id', 'name')); ?></td>
+			<td><?php echo $data->getCategories() ?></td>
 		</tr>
 		<tr>
 			<td><strong><?php echo CHtml::encode($data->getAttributeLabel('description')); ?></strong></td>

@@ -14,6 +14,9 @@ $this->widget('zii.widgets.CListView', array(
 	'template'=>'{summary} {sorter} {items} <hr> {pager}',
 	'sorterHeader'=>'Сортировать по:',
 	'sortableAttributes'=>array('title'),
+	'htmlOptions' => array(
+		'class' => 'list-view ads-list'
+	),
 	'pager'=>array(
 		'class'=>'application.extensions.bootstrap.widgets.TbPager',
 	),
