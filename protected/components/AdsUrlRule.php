@@ -1,15 +1,15 @@
 <?php
-class CategoryUrlRule extends CBaseUrlRule
+class AdsUrlRule extends CBaseUrlRule
 {
 	public $connectionID = 'db';
 
 	public function createUrl($manager,$route,$params,$ampersand)
 	{
-		if ($route==='ads/category/view')
+		if ($route==='ads/ads/view')
 		{
 			if (isset($params['alias']))
 			{
-				$url = 'ads/category/'.$params['alias'];
+				$url = 'ads/'.$params['alias'];
 				unset($params['alias']);
 				if (!empty($params))
 				{
@@ -25,17 +25,17 @@ class CategoryUrlRule extends CBaseUrlRule
 
 	public function parseUrl($manager,$request,$pathInfo,$rawPathInfo)
 	{
-		if (preg_match('/^(ads\/category\/)([a-z0-9-]+)$/', $pathInfo, $matches))
+		if (preg_match('/^(ads\/)([a-z0-9-]+)$/', $pathInfo, $matches))
 		{
-			Yii::import('application.modules.admin.models.Category');
-			$category = Category::model()->find('alias = :alias', array(':alias' => $matches[2]));
-			if (!$category instanceof Category)
+			Yii::import('application.modules.admin.models.Ads');
+			$ads = Ads::model()->find('alias = :alias', array(':alias' => $matches[2]));
+			if (!$ads instanceof Ads)
 			{
 				return FALSE;
 			}
 
-			$_GET['alias'] = $category->alias;
-			return 'ads/category/view';
+			$_GET['alias'] = $ads->alias;
+			return 'ads/ads/view';
 		}
 		return false;
 	}

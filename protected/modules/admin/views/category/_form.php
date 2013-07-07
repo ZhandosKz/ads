@@ -4,7 +4,6 @@
 /* @var $form TbActiveForm */
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'category_form',
-	'enableClientValidation'=>true,
 	'enableAjaxValidation' => true,
 	'htmlOptions'=>array('class'=>'well'),
 	'clientOptions'=>array(

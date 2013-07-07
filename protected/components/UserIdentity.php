@@ -29,6 +29,7 @@ class UserIdentity extends CUserIdentity
 		}
 		else
 		{
+			$this->username = $user->username;
 			$this->_id = $user->getPrimaryKey();
 			$this->errorCode=self::ERROR_NONE;
 		}

@@ -85,6 +85,10 @@ class Category extends CActiveRecord
 			'CreatedModified' => array(
 				'class' => 'CreatedModifiedBehavior'
 			),
+			'Alias' => array(
+				'class' => 'AliasBehavior',
+				'toAliasAttribute' => 'name'
+			),
 			'CAdvancedArBehavior' => array(
 				'class' => 'CAdvancedArBehavior'
 			)
@@ -115,11 +119,6 @@ class Category extends CActiveRecord
 		));
 	}
 
-	public function beforeSave()
-	{
-		$this->alias = Transliterate::getUrl($this->name);
-		return TRUE;
-	}
 	public static  function getMenuItems()
 	{
 		$items = array();
@@ -127,7 +126,7 @@ class Category extends CActiveRecord
 		{
 			$items[] = array(
 				'label' => $category->name,
-				'url' => array($category->alias)
+				'url' => array('/ads/category/view', 'alias' => $category->alias)
 			);
 		}
 		return $items;

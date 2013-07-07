@@ -39,10 +39,8 @@ class Transliterate
 
 		$str = strtolower($str);
 
-		$str = preg_replace(array('/[^a-zа-яё ]+/iu', '/\s+/', '/\s/'), array('', ' ', '-'), $str);
-		// удаляем начальные и конечные '-'
-
-		//$str = trim($str, "-");
+		$str = preg_replace(array('/[^a-zа-яё\- ]+/iu', '/\s+/', '/\s/'), array('', ' ', '-'), $str);
+		$str = trim($str, "-");
 
 		return $str;
 
