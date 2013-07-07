@@ -6,7 +6,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="brand" href="#"><?=Yii::app()->name?></a>
+			<a class="brand" href="/"><?=Yii::app()->name?></a>
 			<div class="nav-collapse collapse">
 				<ul class="nav">
 					<li>
