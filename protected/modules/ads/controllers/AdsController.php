@@ -15,6 +15,9 @@ class AdsController extends ModuleController
 			throw new CHttpException(404, 'Объявление не найдено');
 		}
 
+
+		ContentView::setView($ads);
+
 		$this->pageTitle = $ads->title;
 		$this->render('view', array(
 			'ads' => $ads,

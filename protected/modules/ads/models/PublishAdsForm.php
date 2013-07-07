@@ -31,9 +31,9 @@ class PublishAdsForm extends CFormModel
 
 	public function validateCode()
 	{
-		$this->_smsTransaction = SmsTransaction::model()->find('phone = :phone AND session_id = :session_id AND code = :code', array(
+		$this->_smsTransaction = SmsTransaction::model()->find('phone = :phone AND user_cookie = :user_cookie AND code = :code', array(
 			':phone' => $this->phone,
-			':session_id' => session_id(),
+			':user_cookie' => User::getUserCookie(),
 			':code' => $this->smsCode
 		));
 

@@ -64,10 +64,16 @@ class Ads extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'categories' => array(self::MANY_MANY, 'Category', 'ads_category(ads_id, category_id)')
+			'categories' => array(self::MANY_MANY, 'Category', 'ads_category(ads_id, category_id)'),
+			'viewsEvents' => array(self::HAS_MANY, 'ContentView', 'object_id', 'condition' => 'object_alias = :objectAlias', 'params' => array(':objectAlias' => get_class(self::model())))
 		);
 	}
 
+	public function getViews()
+	{
+
+		return count($this->viewsEvents);
+	}
 	public function behaviors()
 	{
 		return array(

@@ -135,5 +135,19 @@ class User extends CActiveRecord
 		return TRUE;
 	}
 
+	public static function getUserCookie()
+	{
+		if (isset($_COOKIE['user_secure']))
+		{
+			return $_COOKIE['user_secure'];
+		}
+
+		$secret = sha1($_SERVER['REMOTE_ADDR'].time());
+
+		setcookie('user_secure', $secret, time() + 86400, '/');
+
+		return $secret;
+	}
+
 
 }

@@ -8,7 +8,7 @@
  * @property string $phone
  * @property string $code
  * @property integer $status
- * @property string $session_id
+ * @property string $user_cookie
  */
 class SmsTransaction extends CActiveRecord
 {
@@ -99,7 +99,7 @@ class SmsTransaction extends CActiveRecord
 		$this->phone = $phone;
 		$this->code = $this->getNewCode();
 		$this->status = self::STATUS_OPEN;
-		$this->session_id = session_id();
+		$this->user_cookie = User::getUserCookie();
 		if (!$this->putSms() || !$this->save())
 		{
 
