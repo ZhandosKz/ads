@@ -20,4 +20,48 @@ class AdsController extends ModuleController
 			'ads' => $ads,
 		));
 	}
+
+	public function actionPublish()
+	{
+		$this->layout = '//layouts/main';
+		$model = new PublishAdsForm();
+
+		if (Yii::app()->user->isGuest)
+		{
+			$model->setScenario('guest');
+		}
+
+		$request = Yii::app()->request;
+
+		if ($request->isAjaxRequest)
+		{
+
+			if (MyArray::checkValue($_POST, 'ajax', PublishAdsForm::FORM_ID))
+			{
+				echo CActiveForm::validate($model);
+			}
+
+			if (MyArray::checkValue($_POST, 'ajax', 'get_sms_code'))
+			{
+				$smsTransaction = new SmsTransaction();
+				$smsTransaction->open($_POST['phone']);
+			}
+
+			Yii::app()->end();
+		}
+
+		if ($request->isPostRequest)
+		{
+			if (($result = $model->createAds($request->getPost(get_class($model)))) !== FALSE)
+			{
+				FlashMessage::setSuccess('Объявление опубликовано');
+				$this->redirect(array('/ads/ads/view', 'alias' => $result->alias));
+			}
+		}
+
+		$this->pageTitle = 'Публикация объявления';
+		$this->render('publish', array(
+			'model' => $model
+		));
+	}
 }

@@ -69,6 +69,7 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 				'<action:(login|logout|register)>' => 'auth/<action>',
+				'publish-ads' => 'ads/ads/publish'
 			),
 			'showScriptName' => FALSE
 		),
@@ -85,7 +86,7 @@ return CMap::mergeArray(require('../settings/main.php'),array(
 					// Где искать подключаемые файлы JS и CSS
 					'baseUrl' => '/themes/twitter_bootstrap/public',
 					'css' => array('css/custom.css'),
-
+					'js' => array('js/publish.js'),
 					'depends' => array('jquery')
 				),
 			)

@@ -9,3 +9,13 @@ body {
 {
     margin-left: 200px;
 }
+.btn-get-code
+{
+    left: 225px;
+    position: absolute;
+    top: 28px;
+}
+.ads-publish-phone
+{
+    position: relative;
+}
